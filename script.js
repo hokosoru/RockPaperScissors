@@ -5,24 +5,43 @@ function getComputerChoice(){
     let ComputerChoice = Math.floor(Math.random() * 3) +1;
 
     if(ComputerChoice === 1){
-        console.log("Rock");
+       return "Rock";
     }else if(ComputerChoice === 2){
-        console.log("Paper");
-    }else {
-        console.log("Scissor");
+        return "Paper";
+    }else if(ComputerChoice === 3){
+        return "Scissor";
     }
 }
 
 function getHumanChoice(choice){
     
+    document.getElementById('human').innerHTML = `You Choose: ${choice}`;
 
-    let HumanChoice = choice;
+    playRound(choice);
+}
 
-    if(HumanChoice === 'Rock'){
-        document.getElementById('human').innerHTML = `You Choose "ROCK"`;
-    }else if(HumanChoice === 'Paper'){
-        document.getElementById('human').innerHTML = `You Choose "PAPER"`;
-    }else if(HumanChoice === 'Scissor'){
-        document.getElementById('human').innerHTML = `You Choose "SCISSOR"`;
+function playRound(HumanChoice){
+
+    let ComputerChoice = getComputerChoice();
+    document.getElementById('computer').innerHTML = `Computer Choose: ${ComputerChoice}`;
+    
+    if(HumanChoice === ComputerChoice){
+        document.getElementById('result').innerHTML = "DRAW!";
     }
+    else if(
+        (HumanChoice === 'Rock' && ComputerChoice === 'Scissor') ||
+        (HumanChoice === 'Paper' && ComputerChoice === 'Rock') ||
+        (HumanChoice === 'Scissor' && ComputerChoice === 'Paper')
+    ){
+        document.getElementById('result').innerHTML = "You Win!";
+        HumanScore++;
+    }
+    else{
+        document.getElementById('result').innerHTML = "You Lose!" ;
+        ComputerScore++;
+    }
+    document.getElementById('humanScore').innerHTML = HumanScore;
+    document.getElementById('computerScore').innerHTML = ComputerScore;
+
+    
 }
